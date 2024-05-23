@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: backend
+        image: docker.io/library/backend
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8081

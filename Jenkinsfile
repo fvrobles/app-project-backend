@@ -2,22 +2,20 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone repository') {
+        stage('Checkout') {
             steps {
-                sh 'git clone https://github.com/fvrobles/app-project-backend.git'
+                checkout scm
             }
         }
 
         stage('Build Docker image') {
             steps {
-                sh 'eval $(minikube docker-env)'
-                sh 'docker build -t backend .'
+                sh 'docker build -t docker.io/library/backend .'
             }
         }
 
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'export KUBECONFIG=/var/lib/jenkins/.kube/config'
                 sh 'kubectl apply -f deployment.yml'
             }
         }
