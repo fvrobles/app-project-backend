@@ -18,7 +18,10 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             steps {
-                sh 'kubectl apply -f deployment.yml'
+                sh '''
+                    sed -i "s/<VERSION>/${VERSION}/g" deployment.yml &&\
+                    kubectl apply -f deployment.yml
+                '''
             }
         }
     }
